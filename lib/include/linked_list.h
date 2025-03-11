@@ -5,6 +5,8 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
+#include <stdbool.h>
+
 typedef struct {
     char *id;
     void *value;

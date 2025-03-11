@@ -19,16 +19,9 @@ hash_table_item_t *hash_table_item_create(char *key, void *value, size_t value_s
         return NULL;
     }
 
-    item->value = malloc(value_size);
-    if (item->value == NULL) {
-        free(item->key);
-        free(item);
-        return NULL;
-    }
-
+    item->value = value;
     item->value_size = value_size;
     strcpy(item->key, key);
-    memcpy(item->value, value, value_size);
 
     return item;
 }
@@ -95,7 +88,7 @@ int handle_collision(const hash_table_t *table, hash_table_item_t *item, const i
     return 0;
 }
 
-void *hash_table_search(hash_table_t *table, char *key) {
+hash_table_item_t *hash_table_search(hash_table_t *table, char *key) {
     if (table == NULL) {
         perror("Table is NULL!");
         return NULL;
@@ -105,14 +98,13 @@ void *hash_table_search(hash_table_t *table, char *key) {
 
     if (table->items[index] != NULL) {
         if (strcmp(table->items[index]->key, key) == 0) {
-            return table->items[index]->value;
+            return table->items[index];
         }
         if (table->overflow_buckets[index] != NULL) {
             linked_list_t *curr_node = table->overflow_buckets[index];
-            while (curr_node != NULL) {
-                if (curr_node->item != NULL && strcmp(curr_node->item->id, key) == 0) return curr_node->item->value;
-                curr_node = curr_node->next;
-            }
+            linked_list_item_t *found_item = list_read(curr_node, key);
+            hash_table_item_t *hash_item = hash_table_item_create(found_item->id, found_item->value, found_item->value_size);
+            return hash_item;
         }
     }
     return NULL;

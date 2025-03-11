@@ -27,15 +27,15 @@ typedef struct graph {
 graph_t *graph_create(int size);
 void graph_destroy(graph_t *graph);
 
-void graph_node_destroy(graph_node_t *node);
+graph_node_t *graph_node_create(void *value, size_t value_size, graph_edge_t **edges, size_t edge_count);
+void graph_node_destroy(const graph_node_t *node);
+
+graph_edge_t *graph_edge_create(hash_table_item_t *hash_node_item);
 void graph_edge_destroy(graph_edge_t *edge);
 
 graph_node_t *graph_node_search(graph_t *graph, char *node_id);
-graph_t *graph_node_insert(graph_t *graph, char *node_id, void *value, size_t value_size);
+graph_t *graph_node_insert(graph_t *graph, hash_table_item_t *node);
 graph_t *graph_node_remove(graph_t *graph, char *node_id);
-
-graph_t *graph_edge_insert(graph_t *graph, int node_id, int dest_node_id);
-graph_t *graph_edge_remove(graph_t *graph, int node_id, int dest_node_id);
 
 // TODO: Implement BFS algorithm
 

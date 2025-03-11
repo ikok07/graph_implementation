@@ -24,7 +24,7 @@ typedef struct {
 hash_table_t *hash_table_create(int size);
 hash_table_item_t *hash_table_item_create(char *key, void *value, size_t value_size);
 
-void *hash_table_search(hash_table_t *table, char *key);
+hash_table_item_t *hash_table_search(hash_table_t *table, char *key);
 int hash_table_insert(hash_table_t *table, hash_table_item_t *item);
 int hash_table_delete(hash_table_t *table, char *key);
 
