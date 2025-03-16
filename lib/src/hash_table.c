@@ -213,7 +213,7 @@ void hash_table_free_item(hash_table_item_t *item) {
 void hash_table_free(hash_table_t *table) {
     if (table == NULL || table->items == NULL) return;
 
-    for (int i = 0; i < table->count; i++) {
+    for (int i = 0; i < table->size; i++) {
         if (table->items[i] != NULL) hash_table_free_item(table->items[i]);
     }
     hash_table_overflow_buckets_free(table);

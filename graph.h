@@ -38,5 +38,6 @@ graph_t *graph_node_insert(graph_t *graph, hash_table_item_t *node);
 graph_t *graph_node_remove(graph_t *graph, char *node_id);
 
 // TODO: Implement BFS algorithm
+hash_table_item_t *graph_node_bfs_search(graph_t *graph, char *start_node_id, char *target_node_id);
 
 #endif //GRAPH_H

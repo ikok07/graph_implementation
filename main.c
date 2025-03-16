@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "graph.h"
+#include "queue.h"
 
 #define GRAPH_SIZE          100
 
@@ -28,9 +29,9 @@ int main(void) {
     graph = graph_node_insert(graph, n2_hash_item);
 
     // graph = graph_node_remove(graph, "N1");
-    graph_node_t *found_node = graph_node_search(graph, "N1");
+    // graph_node_t *found_node = graph_node_search(graph, "N1");
+    hash_table_item_t *found_node = graph_node_bfs_search(graph, "N1", "N2");
 
-    // TODO: Fix
     graph_destroy(graph);
 
     return 0;

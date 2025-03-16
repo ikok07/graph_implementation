@@ -6,6 +6,8 @@
 
 #include <string.h>
 
+#include "queue.h"
+
 graph_t *graph_create(const int size) {
     graph_t *graph = malloc(sizeof(graph_t));
     if (!graph) return NULL;
@@ -116,21 +118,60 @@ void graph_node_destroy(const graph_node_t *node) {
         if (node->edges[i] != NULL) graph_edge_destroy(node->edges[i]);
         free(node->edges);
     }
+
+    // NOTE: Node is not being freed because the hash table free function handles it
 }
 
 void graph_destroy(graph_t *graph) {
     if (graph == NULL) return;
     if (graph->nodes != NULL) {
-        for (int i = 0; i < graph->nodes->count; i++) {
-            hash_table_item_t *item = hash_table_search(graph->nodes, );
+        for (int i = 0; i < graph->nodes->size; i++) {
+            hash_table_item_t *item = graph->nodes->items[i];
 
             if (item != NULL) {
                 if (item->value != NULL) {
                     graph_node_destroy(graph->nodes->items[i]->value);
                 }
-                hash_table_free_item(item);
             }
         }
+        hash_table_free(graph->nodes);
     }
     free(graph);
+}
+
+hash_table_item_t *graph_node_bfs_search(graph_t *graph, char *start_node_id, char *target_node_id) {
+    if (graph == NULL) return NULL;
+
+    hash_table_item_t *item = hash_table_search(graph->nodes, start_node_id);
+    if (item == NULL || item->value == NULL) return NULL;
+
+    graph_node_t *graph_node = (graph_node_t*)item->value;
+    graph_node->visited = true;
+
+    queue_t *nodes_queue = queue_create(graph->nodes->size, sizeof(graph_edge_t*));
+    if (nodes_queue == NULL) return NULL;
+
+    for (int i = 0; i < graph_node->edge_count; i++) {
+        queue_insert(nodes_queue, graph_node->edges[i]);
+    }
+
+    while (nodes_queue->tail_index > 0) {
+        graph_edge_t *edge = (graph_edge_t*)queue_pop(nodes_queue);
+        if (edge == NULL || edge->dest == NULL || edge->dest->value == NULL) continue;
+        if (strcmp(edge->dest->key, target_node_id) == 0) {
+            queue_destroy(nodes_queue);
+            return edge->dest;
+        }
+
+        graph_node_t *found_node = (graph_node_t*)edge->dest->value;
+        if (found_node->visited) continue;
+
+        found_node->visited = true;
+        for (int i = 0; i < found_node->edge_count; i++) {
+            queue_insert(nodes_queue, found_node->edges[i]);
+        }
+    }
+
+    queue_destroy(nodes_queue);
+    return NULL;
 }

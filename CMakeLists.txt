@@ -11,4 +11,6 @@ add_executable(graph_implementation main.c
         graph.c
         graph.h
         ${LIB_SOURCES}
+        lib/include/queue.c
+        lib/include/queue.h
 )
