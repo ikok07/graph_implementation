@@ -77,12 +77,19 @@ build CMakeFiles/graph_implementation.dir/lib/src/linked_list.c.o: C_COMPILER__g
   OBJECT_DIR = CMakeFiles/graph_implementation.dir
   OBJECT_FILE_DIR = CMakeFiles/graph_implementation.dir/lib/src
 
-build CMakeFiles/graph_implementation.dir/lib/include/queue.c.o: C_COMPILER__graph_implementation_unscanned_Debug /Users/kok/Desktop/graph_implementation/lib/include/queue.c || cmake_object_order_depends_target_graph_implementation
-  DEP_FILE = CMakeFiles/graph_implementation.dir/lib/include/queue.c.o.d
+build CMakeFiles/graph_implementation.dir/lib/src/queue.c.o: C_COMPILER__graph_implementation_unscanned_Debug /Users/kok/Desktop/graph_implementation/lib/src/queue.c || cmake_object_order_depends_target_graph_implementation
+  DEP_FILE = CMakeFiles/graph_implementation.dir/lib/src/queue.c.o.d
   FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/kok/Desktop/graph_implementation/./lib/include
   OBJECT_DIR = CMakeFiles/graph_implementation.dir
-  OBJECT_FILE_DIR = CMakeFiles/graph_implementation.dir/lib/include
+  OBJECT_FILE_DIR = CMakeFiles/graph_implementation.dir/lib/src
+
+build CMakeFiles/graph_implementation.dir/lib/src/utils.c.o: C_COMPILER__graph_implementation_unscanned_Debug /Users/kok/Desktop/graph_implementation/lib/src/utils.c || cmake_object_order_depends_target_graph_implementation
+  DEP_FILE = CMakeFiles/graph_implementation.dir/lib/src/utils.c.o.d
+  FLAGS = -g -std=gnu11 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/kok/Desktop/graph_implementation/./lib/include
+  OBJECT_DIR = CMakeFiles/graph_implementation.dir
+  OBJECT_FILE_DIR = CMakeFiles/graph_implementation.dir/lib/src
 
 
 # =============================================================================
@@ -92,7 +99,7 @@ build CMakeFiles/graph_implementation.dir/lib/include/queue.c.o: C_COMPILER__gra
 #############################################
 # Link the executable graph_implementation
 
-build graph_implementation: C_EXECUTABLE_LINKER__graph_implementation_Debug CMakeFiles/graph_implementation.dir/main.c.o CMakeFiles/graph_implementation.dir/graph.c.o CMakeFiles/graph_implementation.dir/lib/src/hash_table.c.o CMakeFiles/graph_implementation.dir/lib/src/linked_list.c.o CMakeFiles/graph_implementation.dir/lib/include/queue.c.o
+build graph_implementation: C_EXECUTABLE_LINKER__graph_implementation_Debug CMakeFiles/graph_implementation.dir/main.c.o CMakeFiles/graph_implementation.dir/graph.c.o CMakeFiles/graph_implementation.dir/lib/src/hash_table.c.o CMakeFiles/graph_implementation.dir/lib/src/linked_list.c.o CMakeFiles/graph_implementation.dir/lib/src/queue.c.o CMakeFiles/graph_implementation.dir/lib/src/utils.c.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk
   OBJECT_DIR = CMakeFiles/graph_implementation.dir
   POST_BUILD = :

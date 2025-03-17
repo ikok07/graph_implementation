@@ -155,7 +155,7 @@ hash_table_item_t *graph_node_bfs_search(graph_t *graph, char *start_node_id, ch
         queue_insert(nodes_queue, graph_node->edges[i]);
     }
 
-    while (nodes_queue->tail_index > 0) {
+    while (nodes_queue->count > 0) {
         graph_edge_t *edge = (graph_edge_t*)queue_pop(nodes_queue);
         if (edge == NULL || edge->dest == NULL || edge->dest->value == NULL) continue;
         if (strcmp(edge->dest->key, target_node_id) == 0) {

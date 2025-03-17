@@ -27,8 +27,6 @@ linked_list_item_t *list_read(linked_list_t *list, char *item_id) {
 }
 
 linked_list_t *list_insert(linked_list_t *list, linked_list_item_t *item) {
-    if (list == NULL) return NULL;
-
     linked_list_t *new_node = list_allocate();
     if (new_node == NULL) return NULL;
 
@@ -56,6 +54,53 @@ linked_list_t *list_remove(linked_list_t *list, char *item_id) {
     }
 
     return list;
+}
+
+linked_list_t *list_remove_from_edge(linked_list_t *list, int from_start) {
+    if (list == NULL) return NULL;
+
+    if (from_start) {
+        linked_list_t *next_node = list->next;
+        list_node_free(list);
+
+        return next_node;
+    }
+
+    linked_list_t *prev_node = NULL;
+    linked_list_t *curr_node = list;
+
+    while (curr_node->next != NULL) {
+        prev_node = curr_node;
+        curr_node = curr_node->next;
+    }
+
+    list_node_free(curr_node);
+    return prev_node;
+}
+
+linked_list_item_t *list_item_create(char *id, void *value, size_t value_size, bool should_free) {
+    linked_list_item_t *list_item = malloc(sizeof(linked_list_item_t));
+    if (list_item == NULL) return NULL;
+
+    list_item->value_size = value_size;
+    list_item->should_free = should_free;
+
+    list_item->id = malloc(strlen(id) + 1);
+    if (list_item->id == NULL) {
+        free(list_item);
+        return NULL;
+    }
+    memcpy(list_item->id, id, strlen(id) + 1);
+
+    list_item->value = malloc(value_size);
+    if (list_item->value == NULL) {
+        free(list_item->id);
+        free(list_item);
+        return NULL;
+    }
+    memcpy(list_item->value, value, value_size);
+
+    return list_item;
 }
 
 void list_node_free(linked_list_t *node) {

@@ -31,6 +31,7 @@ int main(void) {
     // graph = graph_node_remove(graph, "N1");
     // graph_node_t *found_node = graph_node_search(graph, "N1");
     hash_table_item_t *found_node = graph_node_bfs_search(graph, "N1", "N2");
+    printf("%s", (char*)((graph_node_t*)found_node->value)->value);
 
     graph_destroy(graph);
 
